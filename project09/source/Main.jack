@@ -1,0 +1,169 @@
+/*Jogo de perguntas.
+Para vencer o usuário deve acertar 3 das 5 perguntas. 
+*/
+
+
+class Main {
+    function void main() {
+        var String nome;
+        var char iniciar;
+
+        do Output.printString("Bem Vindo ao jogo das perguntas!");
+        do Output.println();
+        do Output.printString("Para ganhar basta acertar 3 das 5 perguntas sobre a linguagem Jack.");
+        do Output.println();
+        do Output.printString("Aperte a tecla 'enter' para iniciar.");
+        do Output.println();
+
+        while (iniciar = 0) {
+            let iniciar = Keyboard.keyPressed();
+        }
+        
+        do Main.Perguntas();
+        
+        return;
+    }
+
+    function void Perguntas() {
+
+        var char reposta;
+        var int erros, acertos;
+
+        let erros = 0;
+        
+        // ----------Pergunta 01------------
+        let reposta = 0;
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0,0);
+        do Output.printString("Qual a função da seguinte linha: ");
+        do Output.println();
+        do Output.println();
+        do Output.printString("do Screen.clearScreen();");
+        do Output.println();
+        do Output.println();
+        do Output.printString("1 - Limpar a tela.");
+        do Output.println();
+        do Output.printString("2 - limpar a ultima linha da tela.");
+
+        while (~(reposta = 49)) {
+            let reposta = Keyboard.keyPressed();
+            
+            if (reposta = 50) {            
+                let erros = erros+1;
+                let reposta = 49;
+            } // if
+        } // while
+
+        // -----------Pergunta 02 -----------
+        let reposta = 0;
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0,0);
+        do Output.printString("Qual o jeito certo de declarar uma variável? ");
+        do Output.println();
+        do Output.println();
+        do Output.printString("3 - var [nomedavariável];");
+        do Output.println();
+        do Output.printString("4 - do [nomedavariável];");
+
+        while (~(reposta = 51)) {
+            let reposta = Keyboard.keyPressed();
+
+            if (reposta = 52) {            
+                let erros = erros+1;
+                let reposta = 51;
+            } // if
+        } // while
+
+
+        // -----------Pergunta 03 -----------
+        let reposta = 0;
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0,0);
+        do Output.printString("Qual o jeito certo de atibuir o valor 10 a variável numero? ");
+        do Output.println();
+        do Output.println();
+        do Output.printString("5 - var numero = 10;");
+        do Output.println();
+        do Output.printString("6 - let numero = 10;");
+
+        while (~(reposta = 54)) {
+            let reposta = Keyboard.keyPressed();
+
+            if (reposta = 53) {            
+                let erros = erros+1;
+                let reposta = 54;
+            } // if
+        } // while
+
+
+        // -----------Pergunta 04 -----------
+        let reposta = 0;
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0,0);
+        do Output.printString("Qual é um dado primitivos jack?");
+        do Output.println();
+        do Output.println();
+        do Output.printString("7 - int.");
+        do Output.println();
+        do Output.printString("8 - float.");
+
+        while (~(reposta = 55)) {
+            let reposta = Keyboard.keyPressed();
+
+            if (reposta = 56) {            
+                let erros = erros+1;
+                let reposta = 55;
+            } // if
+        } // while
+
+
+        // -----------Pergunta 05 -----------
+        let reposta = 0;
+
+        do Screen.clearScreen();
+        do Output.moveCursor(0,0);
+        do Output.printString("Qual é uma estrutura primitiva jack?");
+        do Output.println();
+        do Output.println();
+        do Output.printString("9 - while.");
+        do Output.println();
+        do Output.printString("10 - for.");
+
+        while (~(reposta = 57)) {
+            let reposta = Keyboard.keyPressed();
+
+            if (reposta = 49) {            
+                let erros = erros+1;
+                let reposta = 57;
+            } // if
+        } // while
+        
+
+        //Resultado
+        do Screen.clearScreen();
+        do Output.moveCursor(0,0);
+
+        let acertos = 5;
+        let acertos = acertos - erros;
+
+        do Output.printString("Voce acertou ");
+        do Output.printInt(acertos);
+        do Output.printString(" Perguntas.");
+        do Output.println();
+
+        if (acertos > 2) {
+            do Output.printString("PARABÉNS! VOCÊ GANHOU.");
+        }
+
+        if (acertos < 3) {
+            do Output.printString("Infelizmente vc perdeu!");
+        }
+
+
+        return;
+    } //function Perguntas
+}
