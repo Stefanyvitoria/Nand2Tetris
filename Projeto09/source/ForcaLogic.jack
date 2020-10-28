@@ -1,0 +1,291 @@
+class ForcaLogic {
+    /**Executa a lógica principal do jogo.*/
+
+    field String word; //Palavra a ser adivinhada
+    field Forca forca, forca2;
+
+    constructor ForcaLogic new() {
+        let forca = Forca.new(270, true);
+        do ForcaLogic.screen1();        //Exibe a tela de entrada
+
+        let word = ForcaLogic.words(); // Escolhe a palavra.
+
+        do  ForcaLogic.screen2(forca, word);    //Exibe a tela de interação.
+        let forca2 = Forca.new(270, false);
+
+        do ForcaLogic.run(word, forca2);    //Inicia a interação.
+
+        return this;
+    }
+
+    method void dispose() {
+        do forca.dispose();
+        do Memory.deAlloc(this);
+        return;
+    }
+
+    function void run(String word, Forca forca2) {
+        /**Função que faz a interaçao com o usuário.*/
+        var char letra, key;
+        var int x, y, erro, count, tmp, tmp1, q_erros, q_acertos, acertos, lword;
+        var int count1, xl, yl;
+
+        let lword = word.length();
+        let q_acertos = 0;
+        let q_erros = 0;
+        let x = 11;
+        let y = 5;
+        let count = 0;
+        let erro = 0;
+        let key =  Keyboard.readChar();
+
+        while (~(key = 135)) {          //loop geral do jogo
+                    
+            while (~(key = 128)) {      // Captura a letra
+                let letra = key;
+                do Output.moveCursor(15,8);
+                let key =  Keyboard.readChar();
+            }
+            let tmp = count + 1;
+            let count = tmp;
+           
+            do ForcaLogic.drawLetra(letra, x,y);    //Desenha letra.
+            let tmp1 = ForcaLogic.verificaletra(letra, word, erro);
+            let tmp = erro + tmp1;
+            let erro = tmp; 
+
+            if (tmp1 = 1) {
+                let tmp = q_erros +1;
+                let q_erros = tmp;
+            }
+            if (tmp1 = 0) {
+                let xl = 6;
+                let yl = 11;
+
+                do Screen.setColor(false);
+                do ForcaLogic.drawTracos(lword, 90,95);
+                do Screen.setColor(true);
+
+                let count1 = 1;
+                while (count1 < (lword+2)) {
+                    do Output.moveCursor(19,7);
+                    
+                    if (~(letra = word[count1])) {
+                        let tmp = yl + 1; 
+                        let yl = tmp;
+                    }
+                    if (letra = word[count1]) {
+                        do ForcaLogic.drawLetra(letra, xl, yl);
+                        let tmp = yl + 1; 
+                        let yl = tmp;
+
+                        let tmp = q_acertos +1;
+                        let q_acertos = tmp; 
+                    }
+                    let tmp = count1 + 1;
+                    let count1 = tmp;
+                }
+            }
+            if (q_erros = 8) {
+                do Sys.wait(500);
+                do Screen.clearScreen();
+                do ForcaLogic.contorno();
+                do forca2.dispose();
+                do Output.moveCursor(0,0);
+                do ForcaLogic.resultado(false);
+            }
+            let lword = word.length();
+            if (q_acertos = lword) {
+                do Sys.wait(500);
+                do Screen.clearScreen();
+                do ForcaLogic.contorno();
+                do forca2.dispose();
+                do Output.moveCursor(0,0);
+                do ForcaLogic.resultado(true);
+            }
+            let tmp = y + 2;
+            let y = tmp;
+
+            if (count = 10) {
+                let count = 0;
+
+                let tmp = x+2;
+                let x = tmp;
+                let y = 5;
+            }
+            do Output.moveCursor(15,8);
+            let key =  Keyboard.readChar();
+        }
+        return;
+    }
+
+    function void resultado(boolean ganhou) {
+        /**Imprime mensagem final.*/
+        if (ganhou) {
+            do Output.moveCursor(9,17);
+            do Output.printString("Muito bem voce ganhou!");
+            do Output.moveCursor(21,3);
+            do Output.printString("Pressione 'End' para terminar execucao.");
+        } else {
+            do Output.moveCursor(9,17);
+            do Output.printString("Voce foi enforcado!");
+            do Output.println();
+            do Forca.rostinho(1000);
+            do Forca.rostinho(3000);
+            do Forca.rostinho(5000);
+            do Forca.rostinho(7000);
+            do Output.moveCursor(21,3);
+            do Output.printString("Pressione 'End' para terminar execucao.");
+        }
+        return;
+    }
+
+    function int verificaletra(int letra, String palavra, int erro) {
+        /**Verifica se uma letra tem em uma plavra.*/
+        var int lenPalavra, count, tmp;
+        var boolean ntem;
+
+        let lenPalavra = palavra.length();
+        let ntem = true;
+        let count = 0;
+        while (count < (lenPalavra+2)) {
+
+            if (letra = palavra[count]) {
+                let ntem = false;
+            }
+            let tmp = count + 1;
+            let count = tmp;
+        }
+        if (ntem) {
+            let tmp = erro + 1;
+            let erro = tmp;
+            do Forca.drawForca(270,erro);
+            return 1;
+        }
+        return 0;
+    }
+
+    function void drawLetra(int letra, int x, int y) {
+        /**Desenha letras na cordenada passada*/
+        do Output.moveCursor(x,y);
+        do Output.printChar(letra);
+        return;
+    }
+
+    function void contorno() {
+        /**Desenha o contorno*/
+        do Screen.drawLine(5,5,500,5);
+        do Screen.drawLine(5,5,5,245);
+        do Screen.drawLine(5,245,500,245);
+        do Screen.drawLine(500,5,500,245);
+        return;
+    }
+
+    function void screen1 () {
+        /**Desenha a tela inicial.*/
+        do ForcaLogic.contorno();
+
+        do Screen.drawLine(20,20, 250,20);
+        do Screen.drawLine(250,20, 250,220);
+        do Screen.drawLine(20,20, 20,220);
+        do Screen.drawLine(20,220, 250,220);
+
+        do Forca.rostinho(1571);
+        do Forca.rostinho(5997);
+
+        do Output.moveCursor(7,6);
+        do Output.printString("Bem vindo ao jogo da");
+        do Output.moveCursor(9,13);
+        do Output.printString("FORCA!");
+
+        do Output.moveCursor(13,8);
+        do Output.printString("Pressione 'BackSpace'");
+        do Output.moveCursor(15,10);
+        do Output.printString("para Iniciar.");
+
+        do Output.moveCursor(21,7);
+        do Output.printString("Por: Stefany Izidio.");
+        return;
+    }
+
+    function void screen2(Forca forca, String word) {
+        /**Desenha a tela de interação.*/
+        var int lenWord;
+
+        do Screen.clearScreen();
+        do ForcaLogic.contorno();
+        do forca.dispose();
+
+        let lenWord = word.length();
+
+        do Screen.drawLine(250,5, 250,245);
+        do Output.moveCursor(2,3);
+        do Output.printString("Adivinhe a Palavra de ");
+        do Output.printInt(lenWord);
+        do Output.moveCursor(3,3);
+        do Output.printString("letras para se salvar.");
+
+        do ForcaLogic.drawTracos(lenWord, 90,95);
+
+        do Output.moveCursor(9,5);
+        do Output.printString("Letras tentadas:");
+        do Output.moveCursor(10,5);
+        return;
+    }
+
+    function void drawTracos(int lenword, int x1, int x2) {
+        /**Desenha os tracinhos com a quantidade de letras.*/
+        var int count, tmp, x1, x2;
+
+        let count = 0;
+        while (count < lenword) {
+            do Screen.drawLine(x1,80,x2,80);
+            let tmp = x1+10;
+            let x1 = tmp;
+            let tmp = x2+10;
+            let x2 = tmp;
+            let tmp = count + 1 ;
+            let count = tmp;
+        }
+        return;
+    }
+
+    function String words () {
+        /**Sorteia uma palavra.*/
+        var Array lista;
+        var int indexWord;
+        var String animal;
+        let indexWord = ForcaLogic.Random();
+        let lista = Array.new(10);
+        
+        let lista[0] = "COBRA";
+        let lista[1] = "MACACO";
+        let lista[2] = "ELEFANTE";
+        let lista[3] = "LEAO";
+        let lista[4] =  "GATO";
+        let lista[5] = "CACHORRO";
+        let lista[6] = "PEIXE";
+        let lista[7] = "FORMIGA";
+        let lista[8] = "TIGRE";
+        let lista[9] = "OVELHA";
+
+        let animal = lista[indexWord];
+        do lista.dispose();
+
+        return animal;
+    }
+    
+    function int Random() {
+        /**Gera um inteiro aleatório.*/
+        var int i, key; 
+        let key = 0;
+        let i = 0;
+        while (~(key = 129)) {
+            let key = Keyboard.keyPressed();
+            let i = i + 1;
+            if (i = 10) {
+                let i = 0;}
+        }
+        return (i);
+    }
+}

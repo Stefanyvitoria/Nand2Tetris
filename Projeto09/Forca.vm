@@ -1,0 +1,390 @@
+function Forca.new 0
+push constant 1
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 0
+push argument 1
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push this 0
+push constant 1
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 2
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 3
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 4
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 5
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 6
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 7
+call Forca.drawForca 2
+pop temp 0
+push this 0
+push constant 8
+call Forca.drawForca 2
+pop temp 0
+label IF_FALSE0
+push pointer 0
+return
+function Forca.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Forca.rostinho 1
+push constant 16384
+push argument 0
+add
+pop local 0
+push local 0
+push constant 0
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 32
+add
+push constant 4104
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 64
+add
+push constant 8196
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 96
+add
+push constant 19026
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 128
+add
+push constant 31711
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 160
+add
+push constant 30127
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 192
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 224
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 256
+add
+push constant 32767
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 288
+add
+push constant 28663
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 320
+add
+push constant 30671
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 352
+add
+push constant 30783
+neg
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 384
+add
+push constant 17922
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 416
+add
+push constant 9732
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 448
+add
+push constant 4104
+call Memory.poke 2
+pop temp 0
+push local 0
+push constant 480
+add
+push constant 4080
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Forca.drawForca 2
+push argument 1
+push constant 1
+eq
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push argument 0
+push constant 10
+add
+push constant 20
+push argument 0
+push constant 20
+add
+push constant 245
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE0
+push argument 1
+push constant 2
+eq
+if-goto IF_TRUE1
+goto IF_FALSE1
+label IF_TRUE1
+push argument 0
+push constant 20
+add
+push constant 20
+push argument 0
+push constant 170
+add
+push constant 30
+call Screen.drawRectangle 4
+pop temp 0
+push argument 0
+push constant 160
+add
+push constant 20
+push argument 0
+push constant 170
+add
+push constant 50
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE1
+push argument 1
+push constant 3
+eq
+if-goto IF_TRUE2
+goto IF_FALSE2
+label IF_TRUE2
+push argument 0
+push constant 165
+add
+push constant 70
+push constant 20
+call Screen.drawCircle 3
+pop temp 0
+label IF_FALSE2
+push argument 1
+push constant 4
+eq
+if-goto IF_TRUE3
+goto IF_FALSE3
+label IF_TRUE3
+push argument 0
+push constant 163
+add
+push constant 90
+push argument 0
+push constant 166
+add
+push constant 170
+call Screen.drawRectangle 4
+pop temp 0
+label IF_FALSE3
+push argument 1
+push constant 5
+eq
+if-goto IF_TRUE4
+goto IF_FALSE4
+label IF_TRUE4
+push argument 0
+push constant 163
+add
+push constant 170
+push argument 0
+push constant 130
+add
+push constant 210
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 163
+add
+push constant 171
+push argument 0
+push constant 130
+add
+push constant 211
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 163
+add
+push constant 172
+push argument 0
+push constant 130
+add
+push constant 212
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE4
+push argument 1
+push constant 6
+eq
+if-goto IF_TRUE5
+goto IF_FALSE5
+label IF_TRUE5
+push argument 0
+push constant 166
+add
+push constant 170
+push argument 0
+push constant 200
+add
+push constant 210
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 166
+add
+push constant 171
+push argument 0
+push constant 200
+add
+push constant 211
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 166
+add
+push constant 172
+push argument 0
+push constant 200
+add
+push constant 212
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE5
+push argument 1
+push constant 7
+eq
+if-goto IF_TRUE6
+goto IF_FALSE6
+label IF_TRUE6
+push argument 0
+push constant 163
+add
+push constant 110
+push argument 0
+push constant 130
+add
+push constant 150
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 163
+add
+push constant 111
+push argument 0
+push constant 130
+add
+push constant 151
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 163
+add
+push constant 112
+push argument 0
+push constant 130
+add
+push constant 152
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE6
+push argument 1
+push constant 8
+eq
+if-goto IF_TRUE7
+goto IF_FALSE7
+label IF_TRUE7
+push argument 0
+push constant 166
+add
+push constant 110
+push argument 0
+push constant 200
+add
+push constant 150
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 166
+add
+push constant 111
+push argument 0
+push constant 200
+add
+push constant 151
+call Screen.drawLine 4
+pop temp 0
+push argument 0
+push constant 166
+add
+push constant 112
+push argument 0
+push constant 200
+add
+push constant 152
+call Screen.drawLine 4
+pop temp 0
+label IF_FALSE7
+push constant 0
+return

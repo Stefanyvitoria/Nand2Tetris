@@ -1,0 +1,8 @@
+class Main {
+    function void main() {
+        var ForcaLogic logic;
+        let logic = ForcaLogic.new(); //Inicia  a lógica
+        do logic.dispose();
+        return;
+    }
+}
